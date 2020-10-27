@@ -1,0 +1,148 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Open Sans", sans-serif;
+}
+
+.container {
+    max-width: 968px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 40px 4px 4px 4px;
+    background-color: #eee;
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 40px;   
+    margin: 0 4px;
+    background-color: #fff;
+    border-bottom: 1px solid rgba(194, 184, 184, 0.5);
+    &__heading {
+        font-size: 18px;
+        color: #555;
+    }
+    &__setting {
+        display: flex;
+        align-items: center;
+    }
+    &__setting-button {  
+        width: 35px;
+        height: 39px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        fill: rgb(105, 102, 102);
+        cursor: pointer;
+        &:hover {
+            background-color: #eee;
+            fill: #000;
+        }
+    }
+}
+
+table {
+    border: 1px solid #ECEDEE; 
+    width: 100%; 
+}
+
+table th { 
+    padding: 5px; 
+    font-size: 14px; 
+
+    border-bottom: 1px solid #fff;
+    border-right: 1px solid #fff;
+}
+
+table td {
+    padding: 5px 5px 5px 10px; 
+    text-align: center;
+    font-size: 16px;  
+    border-bottom: 1px solid #fff;
+    border-right: 1px solid #fff; 
+}
+
+table td:first-child {
+    text-align: left;
+}
+
+table td:nth-child(2n-1) {
+    width: 30%;
+}
+
+table td:nth-child(2n) {
+    width: 20%;
+}
+
+table td:nth-child(2) {
+    background-color: rgb(138, 215, 250);
+}
+
+
+
+
+.highcharts-figure, .highcharts-data-table table {
+    min-width: 360px; 
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.highcharts-data-table table {
+	font-family: Verdana, sans-serif;
+	border-collapse: collapse;
+	border: 1px solid #EBEBEB;
+	margin: 10px auto;
+	text-align: center;
+	width: 100%;
+	max-width: 500px;
+}
+.highcharts-data-table caption {
+    padding: 1em 0;
+    font-size: 1.2em;
+    color: #555;
+}
+.highcharts-data-table th {
+	font-weight: 600;
+    padding: 0.5em;
+}
+.highcharts-data-table td, .highcharts-data-table th, .highcharts-data-table caption {
+    padding: 0.5em;
+}
+.highcharts-data-table thead tr, .highcharts-data-table tr:nth-child(even) {
+    background: #f8f8f8;
+}
+.highcharts-data-table tr:hover {
+    background: #f1f7ff;
+}
+
+.highcharts-credits {
+    display: none;
+}
+
+.Y-dot {
+    position: relative;
+    left: 20px;
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgb(142, 140, 140);
+}
+
+.X-dot {
+    position: relative;
+    bottom: 12px;
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgb(142, 140, 140);
+}
