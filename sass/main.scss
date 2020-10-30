@@ -5,12 +5,15 @@
     font-family: "Open Sans", sans-serif;
 }
 
+body {
+    background-color: #eee;
+}
+
 .container {
     max-width: 968px;
     width: 100%;
     margin: 0 auto;
     padding: 40px 4px 4px 4px;
-    background-color: #eee;
 }
 
 .header {
@@ -42,10 +45,22 @@
         justify-content: center;
         fill: rgb(105, 102, 102);
         cursor: pointer;
+        & svg {
+            user-select: none;
+        }
         &:hover {
             background-color: #eee;
             fill: #000;
         }
+        &--disable {
+
+        fill: rgb(105, 102, 102);
+        }
+        &--active {
+            background-color: #eee;
+            fill: #000;
+        }
+        
     }
 }
 
@@ -85,6 +100,38 @@ table td:nth-child(2n) {
 table td:nth-child(2) {
     background-color: rgb(138, 215, 250);
 }
+
+.proceeds-percent {
+    color: green;
+    padding-left: 20px;
+}
+
+.loss-percent {
+    color: red; 
+    padding-left: 20px;  
+}
+
+.proceeds-block {
+    background-color: rgba(110, 187, 106, .6);
+    padding-left: 20px;
+}
+
+.loss-block {
+    background-color: rgba(211, 105, 97, .6); 
+    padding-left: 20px;
+}
+
+.table-row {
+    &--delete-mode {
+        background: linear-gradient(45deg, rgba(213, 68, 68, .4) 25%, #fff 0, #fff 50%, rgba(213, 68, 68, .4) 0, rgba(213, 68, 68, .4) 75%, #fff 0);
+        background-size: 30px 30px;
+    }
+    &--deleted {
+        display: none;
+    }
+    
+}
+
 
 
 
@@ -145,4 +192,66 @@ table td:nth-child(2) {
     height: 10px;
     border-radius: 50%;
     background-color: rgb(142, 140, 140);
+}
+
+@media(max-width: 768px) {
+    table th {
+        font-size: 11px;
+    }
+    table td {
+        font-size: 14px;
+    }
+    .container {
+        padding: 40px 20px 4px 20px;
+    }
+    table td:nth-child(2n-1) {
+        width: 20%;
+    }
+    table td {
+        width: 20%;
+    }
+    table td:nth-child(1) {
+        width: 25%;
+    }
+}
+
+@media(max-width: 590px) {
+    #container {
+        height: 100%;
+        position: relative;
+    }
+    .highcharts-figure {
+        height: 283px;
+    }
+    table th {
+        font-size: 11px;
+    }
+    table td {
+        font-size: 13px;
+    }
+    .table-content {
+        text-align: left;
+        padding: 5px 5px;
+    }
+
+    .proceeds-percent {
+        display: flex;
+        justify-content: flex-end;
+        padding-left: 0; 
+    }
+    .loss-percent {
+        display: flex;
+        justify-content: flex-end;
+        padding-left: 0;
+    }
+}
+
+@media(max-width: 515px) {
+    table th {
+        font-size: 10px;
+    }
+    table td:first-child {
+        font-size: 10px;
+    }
+
 }

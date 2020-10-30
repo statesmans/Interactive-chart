@@ -9,18 +9,10 @@
 </head>
 <body>
  <div class="container">
-     <!--     <div class="input-block">
-        <input class="input-block__item" id="inputInterval" type="text">
-        <label class="input-block__item-label input-label" for="inputInterval">
-            <img class="input-label__img" src="img/refresh.svg" alt="Reload">
-            <img class="input-label__img" src="img/gear-option.svg" alt="Setting">
-            <img class="input-label__img" src="img/delete.svg" alt="Clear">
-        </label>
-    </div> -->
     <header class="header">
         <h1 class="header__heading">Общая статистика</h1>
         <div class="header__setting">
-            <div class="header__setting-button">
+            <div class="header__setting-button" id="refreshButton">
                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" xmlns:xlink="http://www.w3.org/1999/xlink" width="15px" height="15px">
                 <g>
                   <path d="m501,253c-0.1-11.2-9.3-20.2-20.4-20.2-0.1,0-0.2,0-0.3,0-11.3,0.1-20.3,9.4-20.2,20.7 1.1,90.2-58.4,171.6-144.8,197.8-80.8,24.5-168.8-4.1-220.2-69.7l70.2,9.5c11.2,1.5 21.5-6.3 23-17.5 1.5-11.2-6.3-21.5-17.5-23l-116.9-15.8c-9.5-1-20.8,3.7-23,17.5l-15.7,116.7c-1.5,11.2 6.3,21.5 17.5,23 0.9,0.1 1.8,0.2 2.8,0.2 10.1,0 18.8-7.4 20.2-17.7l8.9-65.7c46.9,58.7 118.5,92.1 192.3,92.1 23.5,0 47.2-3.4 70.4-10.4 103.6-31.5 175-129.2 173.7-237.5z"/>
@@ -28,7 +20,7 @@
                 </g>
             </svg>
             </div>
-            <div class="header__setting-button">
+            <div class="header__setting-button" id="settingButton">
                 <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                     width="15px" height="15px" viewBox="0 0 369.793 369.792" style="enable-background:new 0 0 369.793 369.792;"
                     xml:space="preserve">
@@ -48,8 +40,8 @@
                             c0-34.342,28.505-62.264,63.542-62.264c35.023,0,63.522,27.928,63.522,62.264C248.419,219.238,219.92,247.203,184.896,247.203z"/>
                 </g>
                 </svg>  
-            </div>
-            <div class="header__setting-button">
+            </div> 
+            <a class="header__setting-button header__setting-button--disable" id="deleteButton">
                 <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                     width="15px" height="15px" viewBox="0 0 348.333 348.334" style="enable-background:new 0 0 348.333 348.334;"
                     xml:space="preserve">
@@ -61,22 +53,22 @@
                             L279.721,11.767c15.705-15.687,41.139-15.687,56.832,0C352.258,27.466,352.258,52.912,336.559,68.611z"/>
                     </g>
                 </svg>
-            </div>
+            </a>
         </div>
     </header>
     
-    <table class="table">
+    <table class="table" id="table1">
         <tr>
             <th>Показатель</th>
             <th>Текущий день</th>
             <th>Вчера</th>
             <th>Этот день в прошлую неделю</th>
         </tr>
-        <tr>
+        <tr class="table-row" id="proceeds">
             <td >Выручка, руб</td>
-            <td>500 521</td>
-            <td >480 521 -4%</td>
-            <td>480 521</td>
+            <td class="table-content"></td>
+            <td class="table-content"></td>
+            <td class="table-content"></td>
         </tr>
     </table>
 
@@ -88,60 +80,60 @@
 
 
     
-    <table class="table">
-        <tr>
+    <table class="table" id="table2"    >
+        <tr class="table-row" id="cash">
             <td>Наличные</td>
-            <td>300 000</td>
-            <td>300 000 -3%</td>
-            <td>300 000</td>
+            <td class="table-content"></td>
+            <td class="table-content"></td>
+            <td class="table-content"></td>
         </tr>
-        <tr>
+        <tr class="table-row" id="cashless">
             <td>Безналичный расчет</td>
-            <td>100 000</td>
-            <td>100 000 -3%</td>
-            <td>100 000</td>
+            <td class="table-content"></td>
+            <td class="table-content"></td>
+            <td class="table-content"></td>
         </tr>
-        <tr>
+        <tr class="table-row" id="creditCard">
             <td>Кредитные карты</td>
-            <td>100 521 </td>
-            <td>100 521 -3%</td>
-            <td>100 521</td>
+            <td class="table-content"></td>
+            <td class="table-content"></td>
+            <td class="table-content"></td>
         </tr>
-        <tr>
+        <tr class="table-row" id="middleCheck">
             <td>Средний чек, руб</td>
-            <td>1 300</td>
-            <td>900 +44%</td>
-            <td>900</td>
+            <td class="table-content"></td>
+            <td class="table-content"></td>
+            <td class="table-content"></td>
         </tr>
-        <tr>
+        <tr class="table-row" id="middleGuest">
             <td>Средний гость, руб</td>
-            <td>1 200</td>
-            <td>800 +45%</td>
-            <td>800</td>
+            <td class="table-content"></td>
+            <td class="table-content"></td>
+            <td class="table-content"></td>
         </tr>
-        <tr>
+        <tr class="table-row" id="deleteFromCheck">
             <td>Удаление из чека<br> (после оплаты), руб</td>
-            <td>1 000</td>
-            <td>1 100 -10%</td>
-            <td>900</td>
+            <td class="table-content"></td>
+            <td class="table-content"></td>
+            <td class="table-content"></td>
         </tr>
-        <tr>
+        <tr class="table-row" id="deleteFromBill">
             <td>Удаление из чека<br> (до оплаты), руб</td>
-            <td>1 300</td>
-            <td>1 300 -7%</td>
-            <td>900</td>
+            <td class="table-content"></td>
+            <td class="table-content"></td>
+            <td class="table-content"></td>
         </tr>
-        <tr>
+        <tr class="table-row" id="checkCount">
             <td>Количество чеков</td>
-            <td>34</td>
-            <td>36 -5%</td>
-            <td>34</td>
+            <td class="table-content"></td>
+            <td class="table-content"></td>
+            <td class="table-content"></td>
         </tr>
-        <tr>
+        <tr class="table-row" id="guestCount">
             <td>Количество гостей</td>
-            <td>34</td>
-            <td>36 -5%</td>
-            <td>32</td>
+            <td class="table-content"></td>
+            <td class="table-content"></td>
+            <td class="table-content"></td>
         </tr>
     </table>
  </div>
