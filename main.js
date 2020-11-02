@@ -1,7 +1,7 @@
-
+// Here may be your database
 let dataBase = [
     {
-        date: "27-10-2020",
+        date: "26-10-2020",
         data: {
             proceeds: "500521",
             cash: "300000",
@@ -16,7 +16,7 @@ let dataBase = [
         }
     },
     {
-        date: "26-10-2020",
+        date: "01-11-2020",
         data: {
             proceeds: "480521",
             cash: "309000",
@@ -31,7 +31,7 @@ let dataBase = [
         }
     },
     {
-        date: "19-10-2020",
+        date: "02-11-2020",
         data: {
             proceeds: "480521",
             cash: "309000",
@@ -45,239 +45,156 @@ let dataBase = [
             guestCount: "32"
         }
     }
-]
+];
 
-dataBase = JSON.stringify(dataBase)
-
-window.addEventListener('load', renderAllStatistics(),renderChart(null))
-
-if(window.innerWidth <= 580) {
-    renderChart()
-}
+dataBase = JSON.stringify(dataBase) 
 
 
 function getJSON() {
     // Emulation fetch
-    return JSON.parse(dataBase);
+    return JSON.parse(dataBase)
 }
 
 function findIndexOfDays() {
-
-    let currentDate =  new Date('2020, 2')
-
-    // Today
-    let currentDay = ''
-    if(currentDate.getDate() <= 9) {
-        currentDay = '0' + currentDate.getDate()
-    } else {
-        currentDay = currentDate.getDate()
-    }
-
-    let currentMonth = ''
-    if(currentDate.getMonth() <= 9) {
-        currentMonth = '0' + currentDate.getMonth()
-    } else {
-        currentMonth = currentDate.getMonth()
-    }
-
-    let currentDateJSON = currentDay + '-' + currentMonth + '-' + currentDate.getUTCFullYear()
-
-    // Yesterday
-    let yesterday = ''
-    let yesterdayMonth = ''
-    let yesterdayYear = currentDate.getFullYear()
-
-    if(currentDate.getDate() - 1 <= 0) {
-        let date = new Date(`${currentDate.getUTCFullYear()},
-                             ${currentDate.getMonth() + 1}`)
-        yesterday = date.getDate()
-        if(currentDate.getMonth() - 1 <= 0) {
-        
-            yesterdayMonth = 12
-            yesterdayYear = currentDate.getFullYear() - 1
+    let data = getJSON()
+    let currentDate =  new Date()
+    let dayInMs = 86400000;
+    // Today date
+        let todayDay = currentDate.getDate()
+        let todayMonth = currentDate.getMonth() + 1
+        if(todayDay <= 9) {
+            todayDay = '0' + currentDate.getDate()
         }
-    }else if(currentDate.getDate() - 1 <= 9) {
-        yesterday = '0' + (currentDate.getDate() - 1)
-    } else {
-        yesterday = currentDate.getDate() - 1
+        if(todayMonth <= 9) {
+            todayMonth = '0' + currentDate.getMonth()
+        }
+    
+    let todayDateString = todayDay + '-' + todayMonth + '-' + currentDate.getFullYear()
+    
+    
+    //Yesterday date
+    let yesterdaySub = currentDate.getTime() - dayInMs
+    let yesterdayTime = new Date(yesterdaySub)
+    let yesterdayDay = yesterdayTime.getDate()
+    let yesterdayMonth = yesterdayTime.getMonth() + 1
+    
+    if(yesterdayDay <= 9) {
+        yesterdayDay = '0' + yesterdayTime.getDate()
     }
-
-    if(currentDate.getMonth() - 1 <= 9) {
-        yesterdayMonth = '0' + currentDate.getMonth()
-    } else {
-        yesterdayMonth = currentDate.getMonth()
+    if(yesterdayMonth <= 9) {
+        yesterdayMonth = '0' + yesterdayTime.getMonth()
     }
     
-    let yesterdayDateJSON = yesterday + '-' + yesterdayMonth + '-' + yesterdayYear
-//
-    data.forEach(day => {
-        // Current day
-        if(day.date === currentDateJSON) {
+    let yesterdayDateString = yesterdayDay + '-' + yesterdayMonth + '-' + yesterdayTime.getFullYear()
+    
+    
+    //WeekAgo date
+    let weekAgoSub = currentDate.getTime() - (7 * dayInMs)
+    let weekAgoTime = new Date(weekAgoSub)
+    let weekAgoDay = weekAgoTime.getDate()
+    let weekAgoMonth = weekAgoTime.getMonth() + 1
+    
+    if(weekAgoDay <= 9) {
+        weekAgoDay = '0' + weekAgoTime.getDate()
+    }
+    if(weekAgoMonth <= 9) {
+        weekAgoMonth = '0' + weekAgoTime.getMonth()
+    }
+    
+    let weekAgoDateString = weekAgoDay + '-' + weekAgoMonth + '-' + weekAgoTime.getFullYear()
 
+    //Find indeces of entered days
+    let dateIndices = []
+
+    data.forEach((day, i) => {
+        if(day.date === todayDateString) {
+            dateIndices[0] = i
         }
-
-        if(day.date === yesterdayDateJSON) {
-
+        if(day.date === yesterdayDateString) {
+            dateIndices[1] = i
+        }
+        if(day.date === weekAgoDateString) {
+            dateIndices[2] = i
         }
     });
+    
+    return [dateIndices, data]
 }
 
-let massiveIndex = [0,1,2]
-
 function renderAllStatistics() {
-    let data = getJSON()
-    let massiveIndex = [0,1,2]
-    let tableTop = Array.from(document.getElementById('table1').getElementsByTagName('tr')[1].getElementsByTagName('td'))
-    let tableBottom = Array.from(document.getElementsByTagName('tr'))
-    console.log(tableBottom)
-/*     for(i = 0; i < tableTop.length - 1; i++) {
-        if(massiveIndex[i - 1]) {
-
-            tableTop[i + 1].innerHTML = `${data[massiveIndex[i]].data.proceeds}`
-
-           let difference = (Number(data[massiveIndex[0]].data.proceeds) - Number(data[massiveIndex[1]].data.proceeds)) / Number(data[massiveIndex[0]].data.proceeds) * 100
-
-            if(difference > 0) {
-                tableTop[i].classList.add('proceeds-block')
-                tableTop[i].appendChild(document.createElement('span')).classList.add('proceeds-percent')
-            } else {
-                tableTop[i].classList.add('loss-block')
-                tableTop[i].appendChild(document.createElement('span')).classList.add('loss-percent')
-            }
-
-            tableTop[i].getElementsByTagName('span')[0].innerHTML = `${difference} %`
-        } else {
-            tableTop[i + 1].innerHTML = `${data[massiveIndex[i]].data.proceeds}`
-        }
-    } */
+    let table = Array.from(document.getElementsByTagName('tr'))
+    let [dateIndices, data] = findIndexOfDays()
 
     // Table under chart
-    tableBottom.forEach(el => {
-        let tdEl = el.getElementsByClassName('table-content')
-        let rowId = el.id
-        for(i = 0; i < tdEl.length; i++) {
-            let originStr = data[massiveIndex[i]].data[rowId].split('')
+    table.forEach(row => {
+        // Get cell which must be filled
+        let cell = row.getElementsByClassName('table-content')
+        // Get row id which matches with key in JSON
+        let rowId = row.id
+
+        // Write value of key every cell in row
+        for(i = 0; i < cell.length; i++) {
+            // Change the value that have space after three numeral
+            let originStr = data[dateIndices[i]].data[rowId].split('')
             let convertStr = []
             if(originStr.length > 3) {
-                originStr.reverse().forEach((el, i) => {
+                originStr.reverse().forEach((row, i) => {
                     if(i === 3) {
-                       convertStr.push(el + ' ')
+                       convertStr.push(row + ' ')
                     } else {
-                        convertStr.push(el)
+                        convertStr.push(row)
                     }
                 })
                 convertStr = convertStr.reverse().join('')
             } else {
                 convertStr = originStr.join('')
             }
+
+            // If (i > 1) start compare previous cell with current
             if(i >= 1) {
-                tdEl[i].innerHTML = `${convertStr}`
+                cell[i].innerHTML = `${convertStr}`
                 
-                let difference = ''
-                if(Number(data[massiveIndex[i - 1]].data[rowId]) > Number(data[massiveIndex[i]].data[rowId])) {
-                    let a = Number(data[massiveIndex[i - 1]].data[rowId]) / Number(data[massiveIndex[i]].data[rowId]) - 1
-              
-                    difference = Math.ceil(a * 100) 
-                } else if(Number(data[massiveIndex[i - 1]].data[rowId]) < Number(data[massiveIndex[i]].data[rowId])){
-                    let a = Number(data[massiveIndex[i]].data[rowId]) / Number(data[massiveIndex[i - 1]].data[rowId]) - 1
-                     difference = Math.ceil(a * -100)
-                }if(data[massiveIndex[i - 1]].data[rowId] === data[massiveIndex[i]].data[rowId]) {
-                    difference = ''
+                let cellDifference = ''
+                if(Number(data[dateIndices[i - 1]].data[rowId]) > Number(data[dateIndices[i]].data[rowId])) {
+                    let percent = Number(data[dateIndices[i - 1]].data[rowId]) / Number(data[dateIndices[i]].data[rowId]) - 1
+                    cellDifference = Math.ceil(percent * 100) 
+
+                } else if(Number(data[dateIndices[i - 1]].data[rowId]) < Number(data[dateIndices[i]].data[rowId])){
+                    let percent = Number(data[dateIndices[i]].data[rowId]) / Number(data[dateIndices[i - 1]].data[rowId]) - 1
+                    cellDifference = Math.ceil(percent * -100)
+
+                }if(data[dateIndices[i - 1]].data[rowId] === data[dateIndices[i]].data[rowId]) {
+                    cellDifference = ''
                 }
 
-                if(difference > 0) {
-                    if(difference >= 10) {
-                        tdEl[i].classList.add('proceeds-block')
+                // write sign depending on the sign of the number
+                if(cellDifference > 0) {
+
+                    // Add a class with some color
+                    if(cellDifference >= 10) {
+                        cell[i].classList.add('proceeds-block')
                     }
-                    tdEl[i].appendChild(document.createElement('span')).classList.add('proceeds-percent')
-                    tdEl[i].getElementsByTagName('span')[0].innerHTML = `+${difference} %`
-                } else if(difference < 0){
-                    if(difference <= -10) {
-                        tdEl[i].classList.add('loss-block')
+                    cell[i].appendChild(document.createElement('span')).classList.add('proceeds-percent')
+                    cell[i].getElementsByTagName('span')[0].innerHTML = `+${cellDifference} %`
+                    
+                } else if(cellDifference < 0){
+
+                    // Add a class with some color
+                    if(cellDifference <= -10) {
+                        cell[i].classList.add('loss-block')
                     }
-                    tdEl[i].appendChild(document.createElement('span')).classList.add('loss-percent')
-                    tdEl[i].getElementsByTagName('span')[0].innerHTML = `${difference} %`
+                    cell[i].appendChild(document.createElement('span')).classList.add('loss-percent')
+                    cell[i].getElementsByTagName('span')[0].innerHTML = `${cellDifference} %`
                 } 
     
             } else {
-                tdEl[i].innerHTML = `${convertStr}`
+                cell[i].innerHTML = `${convertStr}`
             }
         }
     })
-
 }
 
-
-
-
-
-
-document.getElementById('refreshButton').addEventListener('click', renderAllStatistics())
-
-let deleteButton = document.getElementById('deleteButton');
-deleteButton.addEventListener('click', (e) => {
-    if(!deleteButton.classList.contains('header__setting-button--active')) {
-        deleteButton.classList.add('header__setting-button--active')
-
-        Array.from(document.getElementsByClassName('table-row')).forEach(row => {
-            row.classList.add('table-row--delete-mode')
-        })
-    } else {
-        deleteButton.classList.remove('header__setting-button--active')
-
-        Array.from(document.getElementsByClassName('table-row')).forEach(row => {
-            row.classList.remove('table-row--delete-mode')
-        })
-    }
-})
-
-Array.from(document.getElementsByClassName('table-row')).forEach(row => {
-    row.addEventListener('click', (e) => {
-        if(document.getElementById('deleteButton').classList.contains('header__setting-button--active')) {
-            row.classList.add('table-row--deleted')
-        } else {
-            let data = getJSON()
-            let targetId = e.target.parentNode.id
-            let valueForChart = []
-    
-            for(i = 0; i < massiveIndex.length; i++) {
-                valueForChart.push(Number(data[massiveIndex[i]].data[targetId]))
-            }
-            valueForChart.reverse()
-            renderChart(valueForChart)
-        }
-    })
-})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function renderChart(data){
-    let mediaHeight = 400
-    if(!data) {
-        data = []
-    }
-
+function renderChart(data = ['1','0','1']){
     Highcharts.chart('container', {
         chart: {
             type: 'line'
@@ -323,4 +240,57 @@ function renderChart(data){
 
     });
 }
+
+
+// HENDLERS
+
+window.addEventListener('load', renderAllStatistics(),renderChart())
+
+// Button for refresh table
+document.getElementById('refreshButton').addEventListener('click', () => {
+    Array.from(document.getElementsByClassName('table-row')).forEach(row => {
+        row.classList.remove('table-row--deleted')
+    })
+
+    renderAllStatistics()
+})
+
+
+// Handler for delete button that active (delete-mode)
+let deleteButton = document.getElementById('deleteButton');
+deleteButton.addEventListener('click', (e) => {
+    if(!deleteButton.classList.contains('header__setting-button--active')) {
+        deleteButton.classList.add('header__setting-button--active')
+
+        Array.from(document.getElementsByClassName('table-row')).forEach(row => {
+            row.classList.add('table-row--delete-mode')
+        })
+    } else {
+        deleteButton.classList.remove('header__setting-button--active')
+
+        Array.from(document.getElementsByClassName('table-row')).forEach(row => {
+            row.classList.remove('table-row--delete-mode')
+        })
+    }
+})
+
+// Listener for rows 
+Array.from(document.getElementsByClassName('table-row')).forEach(row => {
+    row.addEventListener('click', (e) => {
+        // If active delete mode
+        if(document.getElementById('deleteButton').classList.contains('header__setting-button--active')) {
+            row.classList.add('table-row--deleted')
+        } else {
+            // If delete mode disabled clicks work for render chart
+            let [dateIndices ,data] = findIndexOfDays()
+            let targetId = e.target.parentNode.id
+            let valueForChart = []
+            for(i = 0; i < dateIndices.length; i++) {
+                valueForChart.push(Number(data[dateIndices[i]].data[targetId]))
+            }
+            valueForChart.reverse()
+            renderChart(valueForChart)
+        }
+    })
+})
 
