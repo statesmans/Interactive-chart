@@ -1,63 +1,4 @@
-// Here may be your database
-let dataBase = [
-    {
-        date: "26-10-2020",
-        data: {
-            proceeds: "500521",
-            cash: "300000",
-            cashless: "100000",
-            creditCard: "100521",
-            middleCheck: "1300",
-            middleGuest: "1200",
-            deleteFromCheck: "1000",
-            deleteFromBill: "1300",
-            checkCount: "34",
-            guestCount: "34"
-        }
-    },
-    {
-        date: "01-11-2020",
-        data: {
-            proceeds: "480521",
-            cash: "309000",
-            cashless: "103000",
-            creditCard: "103537",
-            middleCheck: "900",
-            middleGuest: "800",
-            deleteFromCheck: "1100",
-            deleteFromBill: "1391",
-            checkCount: "36",
-            guestCount: "36"
-        }
-    },
-    {
-        date: "02-11-2020",
-        data: {
-            proceeds: "480521",
-            cash: "309000",
-            cashless: "103000",
-            creditCard: "100521",
-            middleCheck: "900",
-            middleGuest: "800",
-            deleteFromCheck: "900",
-            deleteFromBill: "900",
-            checkCount: "34",
-            guestCount: "32"
-        }
-    }
-];
-
-dataBase = JSON.stringify(dataBase) 
-
-
-function getJSON() {
-    // Emulation fetch
-    return JSON.parse(dataBase)
-}
-
-function findIndexOfDays() {
-    let data = getJSON()
-    let currentDate =  new Date()
+let currentDate =  new Date()
     let dayInMs = 86400000;
     // Today date
         let todayDay = currentDate.getDate()
@@ -103,6 +44,67 @@ function findIndexOfDays() {
     
     let weekAgoDateString = weekAgoDay + '-' + weekAgoMonth + '-' + weekAgoTime.getFullYear()
 
+
+// Here may be your database
+let dataBase = [
+    {
+        date: `${weekAgoDateString}`,
+        data: {
+            proceeds: "500521",
+            cash: "300000",
+            cashless: "100000",
+            creditCard: "100521",
+            middleCheck: "1300",
+            middleGuest: "1200",
+            deleteFromCheck: "1000",
+            deleteFromBill: "1300",
+            checkCount: "34",
+            guestCount: "34"
+        }
+    },
+    {
+        date: `${yesterdayDateString}`,
+        data: {
+            proceeds: "480521",
+            cash: "309000",
+            cashless: "103000",
+            creditCard: "103537",
+            middleCheck: "900",
+            middleGuest: "800",
+            deleteFromCheck: "1100",
+            deleteFromBill: "1391",
+            checkCount: "36",
+            guestCount: "36"
+        }
+    },
+    {
+        date: `${todayDateString}`,
+        data: {
+            proceeds: "480521",
+            cash: "309000",
+            cashless: "103000",
+            creditCard: "100521",
+            middleCheck: "900",
+            middleGuest: "800",
+            deleteFromCheck: "900",
+            deleteFromBill: "900",
+            checkCount: "34",
+            guestCount: "32"
+        }
+    }
+];
+
+dataBase = JSON.stringify(dataBase) 
+
+
+function getJSON() {
+    // Emulation fetch
+    return JSON.parse(dataBase)
+}
+
+function findIndexOfDays() {
+    let data = getJSON()
+    
     //Find indeces of entered days
     let dateIndices = []
 
